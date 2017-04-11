@@ -11,6 +11,7 @@ import {
 
 import HouseImg from './Resources/house.png';
 import SearchResults from './SearchResults';
+import SearchResultsMap from './SearchResultsMap';
 
 const styles = StyleSheet.create({
 	description: {
@@ -89,6 +90,7 @@ export default class SearchPage extends Component {
 			searchString: 'london',
 			isLoading: false,
 			message: '',
+      preferredView: 'List',
 		};
 	}
 
@@ -111,10 +113,14 @@ export default class SearchPage extends Component {
 
   _handleResponse(response) {
     this.setState({ isLoading: false , message: ''  });
+    let goToComponent = SearchResults;
+    if (this.state.preferredView === 'Map') {
+      goToComponent = SearchResultsMap;
+    }
     if (response.application_response_code.substr(0, 1) === '1') {
       this.props.navigator.push({
         title: 'Results',
-        component: SearchResults,
+        component: goToComponent,
         passProps: {
           listings: response.listings
         },
@@ -129,7 +135,13 @@ export default class SearchPage extends Component {
 		this._executeQuery(query);
 	}
 
-
+  onPreferredViewPressed() {
+    if (this.state.preferredView === 'List') {
+      this.setState({ preferredView: 'Map' })
+    } else {
+      this.setState({ preferredView: 'List' })
+    }
+  }
 
 	render() {
 		let spinner = this.state.isLoading ? (
@@ -155,8 +167,8 @@ export default class SearchPage extends Component {
 			</TouchableHighlight>
 			</View>
 			<View style={styles.flowRight}>
-			<TouchableHighlight style={styles.button}     underlayColor='#99d9f4'>
-			<Text style={styles.buttonText}>Location</Text>
+			<TouchableHighlight style={styles.button}     underlayColor='#99d9f4' onPress={this.onPreferredViewPressed.bind(this)}>
+			<Text style={styles.buttonText}>View Results as: {this.state.preferredView}</Text>
 			</TouchableHighlight>
 			</View>
 			<Image source={HouseImg} style={styles.image}/>
