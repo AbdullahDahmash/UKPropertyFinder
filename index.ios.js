@@ -24,16 +24,6 @@ export default class UKPropertyFinder extends Component {
   }
 }
 
-class HelloWorld extends Component {
-  render() {
-    return (
-      <View>
-        <Text style={styles.text}>Hello World </Text>
-      </View>
-    )
-  }
-}
-
 let styles = StyleSheet.create({
   text: {
     color: 'black',

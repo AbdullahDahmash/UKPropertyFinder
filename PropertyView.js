@@ -65,7 +65,6 @@ export default class PropertyView extends Component {
       </View>
       <Text style={styles.description}>{stats}</Text>
       <Text style={styles.description}>{property.summary}</Text>
-      <Text style={styles.description}>{stats}</Text>
       <MapView style={styles.map}
         initialRegion={{
           latitude: property.latitude,
