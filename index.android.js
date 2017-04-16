@@ -9,24 +9,22 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Navigator,
 } from 'react-native';
+import SearchPage from './SearchPage';
 
 export default class UKPropertyFinder extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Navigator 
+        style={styles.container}
+        initialRoute={{
+          title: 'Property Finder',
+          index: 0,
+        }}
+        renderScene= {SearchPage}
+      />
     );
   }
 }
